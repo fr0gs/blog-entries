@@ -9,8 +9,8 @@ Client -> GET /settings -> Server API (fails)
 
 Now, the code wasn't changed in the frontend so there was a slight chance the backend would be the culprit. Checking the differences between a working production environment two things stood out:
 
-     * First environment both frontend & backend are in the same server. While developing with `ember s` I have a server running locally and I make calls to the external API, so this might be a problem of related with making cross-origin requests. 
-     * After being successfully authenticated, the server sends a session cookie using the **Set-Cookie** header, and in subsequent calls the browser will send that cookie in the request headers. Usual behavior. But in the failing environment, after a successful login, the browser received the cookie but never sent it back again.
+* First environment both frontend & backend are in the same server. While developing with `ember s` I have a server running locally and I make calls to the external API, so this might be a problem of related with making cross-origin requests. 
+* After being successfully authenticated, the server sends a session cookie using the **Set-Cookie** header, and in subsequent calls the browser will send that cookie in the request headers. Usual behavior. But in the failing environment, after a successful login, the browser received the cookie but never sent it back again.
 
 I quickly discarded the first case, since when you use `ember s --proxy` you are really making a call to the same origin and then the proxy will route it to the external API. On the other side... why was my cookie not being set?! It was not until a coworker pointed out the *Secure* flag in the session cookie. What was that?
 
