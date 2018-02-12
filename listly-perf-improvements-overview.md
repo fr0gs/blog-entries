@@ -1,4 +1,4 @@
-# Optimize rendering performance in an Ember 1.13 application
+# Optimize rendering in an Ember 1.13 application
 
 # Overview
 
@@ -15,7 +15,7 @@ When taking a look at the scenario some things became apparent:
 * This should not be necessarily a problem, but the tablet used by the client is an old model with very low specs. Upgrading to a better one is not possible since the model has to pass a set of quality and security tests, as those tablets are meant to be used in an industrial environment.
 
 
-The data model of **Listly** is easy to grasp. The object that governs all the logic is the *Item*. An item can be of type *Workspace*, *List*, or *List Item* depending on the level of abstraction you want to achieve. Workspaces have lists inside, and those have child items. Those items can at the same time have child items and so forth, according to the business case needs.
+The data model of **Listly** is easy to grasp. The object that governs all the logic is the *Item*. An item can be of type *Workspace*, *List*, or *List Item* depending on the level of abstraction you want to achieve. Workspaces have lists inside, and those have child items. Said items can at the same time have child items and so forth, according to the business case needs.
 
 A hierarchical view of it can be seen like:
 
@@ -36,8 +36,17 @@ Workspace_n:
 
 This is to make sense of the data in the UI, but the json payload has the same structure regardless of the type, and will be rendered accordingly.
 
+It is easier to see it visually. This is the **Logsheets** workspace, composed by several lists:
 
-[LISTLY IMAGE WITH WORSKPACES, LISTS AND ITEMS HIERE]()
+![listly_workspaces](listly_workspaces.png)
+
+Then, the **Safety Logsheets** list view:
+
+![listly_safety_logsheets_list](listly_safety_logsheets_list.png)
+
+An finally, the view of a single **Item** and it's hierarchical structure:
+
+![listly_safety_item](listly_safety_item.png)
 
 **Listly** replaces **Ember Data** by an custom solution ostensibly called the **listly-store**, designed to deal with some shortcomings ember-data had at the time. It also uses a modified version of the JSON-API protocol to fit its needs.
 
