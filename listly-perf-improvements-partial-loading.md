@@ -1,8 +1,10 @@
 # Optimize rendering performance in an Ember 1.13 application (Part 2: Partial Loading)
 
-# Problem
+# Introduction
 
 This is the second part in the series of improvements to enhance **Listly** (A frontend Ember.js application for the pmX suite made by [TenForce](https://www.tenforce.com)). The [overview](link-to-overview) and the [first part (pagination)](link-to-pagination) are also available.
+
+# Problem
 
 As explained in the overview article, when visiting an *Item* list the application eagerly fetches all the items in it. This is a waste for two reasons:
 
