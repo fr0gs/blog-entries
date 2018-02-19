@@ -115,8 +115,7 @@ Several solutions were proposed to tackle this:
 3. Paginate the items' child items to prevent the UI to render a huge list of items way beyond the viewport.
 4. Whenever the user visits an item list, each one of the list items is fetched from the backend eagerly. This is not necessary since only a fraction of the information is shown in the list view, so a solution would be to fetch a partial version of the items for the list view, and when visiting the item then fully downloading it .
 5. Every update to the user interface results in diffing, merging changes, serializing & sending it to the backend. This is extremely costly. Instead, it should be possible to create a small "update squashing service" for UI updates that would add a small debounce and create a single joint update to the item.
-6. There are plenty of properties sharing the same value but appear repeated since they are referenced by different fields accross the item. It is possible to group them into a single property and make all fields to point to it, shaving some size in the **properties** object.
-7. Substituting all standalone *label: value* readonly fields by a single one containing all the label & value pairs, stripping both the **properties** and **tabs** sizes and making the parsing way easier.  
+6. Substituting all standalone *label: value* readonly fields by a single one containing all the label & value pairs, stripping both the **properties** and **tabs** sizes and making the parsing way easier.  
 
 
 # Conclusion
