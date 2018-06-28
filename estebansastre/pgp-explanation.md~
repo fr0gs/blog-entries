@@ -1,0 +1,71 @@
+# Overview
+
+I've had the intention of writing an article about **PGP** for a long time, but every time I started reading about PGP, I almost immediately dropped the idea off. I believe this is spurred by the fact that understanding **PGP** is not quite simple. Just as monads, once you grasp it it becomes evident to you, and then you automatically lose the ability to communicate your findings.
+
+Therefore, finally I decided to wrap my head around this concept and write a small article to try to simplify this concepts mostly for myself and hopefully for whomever reads it.
+
+# What is **PGP**?
+
+The simplest way I understand it, is that **PGP** is an **information's encryption & signing system**. By information I mean as stated by [the wikipedia article](https://en.wikipedia.org/wiki/Pretty_Good_Privacy): *emails*, *files*, *text*, *directories* and *whole disk partitions*.
+
+It provides a framework to echange data securely among peers, as well as guaranteeing both the authenticity and integrity of the message.
+
+# How does it work?
+
+There are three main concepts I've decided to split **PGP** into:
+
+1. Encryption/Decryption
+2. Integrity
+3. Authenticity.
+
+
+## 1. Encryption/Decryption
+
+Encrypting a message is the act of codifying it to make it unreadable to an external observer other than the intended recipient. The encoded message is called *ciphertext*. Decrypting is the inverse process where an unreadable message becomes accessible (converting from ciphertext back to plain text).
+
+<br>
+
+![pgp-encrypt](pgp-encrypt.png)
+
+<br>
+
+
+**PGP** uses several techniques to achieve that goal: *hashing*, *data compression* and *symmetric/asymmetric cryptography*. Explaining each one of the techniques separately would go beyond the scope of the article, and additionally, they are no simple concepts to fathom, there is quite a bit of literature on each one of them.
+
+The process of data encryption & decryption has multiple steps to be taken into account. The best way I can think for explaining them is to draw a small overview of the sequence of steps that would take place in the simple case of sending data (in any form) from a *Sender* to a *Receiver*, and then providing further explanation of each one.
+
+<br>
+
+![pgp-encrypt-overview](pgp-encrypt-overview.png)
+
+<br>
+
+
+**Compression**: initially the message (data) is compressed by PGP using. This is done with a multiple purpose in mind: to reduce the amount of bytes to be transmitted, and hence increasing performance, and additionally to enhance the cryptographic strength. Messages can have patterns that can be spotted in the text after encryption; compression helps on preventing those patterns to leak.
+
+A new **Session Key** is generated per each one of the messages sent; this is a random string created by using multiple sources of entropy (randomness) in your computer, for example mouse movements. This key is then used to encrypt the compressed message data using symmetric cryptography, creating a compressed ciphertext. 
+
+Afterwards, the **Session Key** alone is encrypted with the *Receiver's* public key (asymmetric cryptography) and attached to the compressed ciphertext, generating the whole encrypted message. The **Session Key** is later discarded. 
+
+This is done this way instead of encrypting the whole message only with asymmetric cryptography because the size of the message and the computation time would increase enormously. In this manner, only a small part of the system (the session key) is encrypted with the slower algorithm.
+
+
+Inversely, what is left for the receiver is to use their private key to decrypt the session key, and use that session key to decrypt the entire message.
+
+![pgp-decrypt-overview](pgp-decrypt-overview.png)
+
+# What is it useful for?
+
+# Example 
+
+- Ejemplo creando dos pares de claves para usuario1 y usuario2, cifrando un mensaje en texto plano y descrifrandolo en el otro
+- Ejemplo con Enigmail?
+
+
+# Alternatives
+
+# References
+
+1. [https://users.ece.cmu.edu/~adrian/630-f04/PGP-intro.html](https://users.ece.cmu.edu/~adrian/630-f04/PGP-intro.html)
+2. [https://en.wikipedia.org/wiki/Pretty_Good_Privacy](https://en.wikipedia.org/wiki/Pretty_Good_Privacy)
+3. [https://en.wikipedia.org/wiki/GNU_Privacy_Guard](https://en.wikipedia.org/wiki/GNU_Privacy_Guard)
